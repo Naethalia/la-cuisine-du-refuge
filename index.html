@@ -171,6 +171,18 @@
 const SUPABASE_URL = "https://xfeehgjryuiiywfgmspg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_hEJv6qLlQfhtlDKmWT99Rw_cPB7XBlM";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    supabaseClient
+  .from("soirees")
+  .select("id, titre, recette, nombre_preparations, statut")
+  .eq("id", 1)
+  .single()
+  .then(({ data, error }) => {
+    if (error) {
+      console.error("Erreur de lecture de la soirée :", error.message);
+    } else {
+      console.log("Soirée retrouvée dans Supabase :", data.titre);
+    }
+  });
     const currentUser = {
   id: "demo",
   name: "Connexion Discord..."
