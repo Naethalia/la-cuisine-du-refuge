@@ -151,6 +151,12 @@
         <p>Choisissez les postes correspondant à vos ingrédients.</p>
       </div>
 
+<div id="discord-connexion" style="text-align:center; margin:20px 0;">
+  <button id="btn-discord" type="button">
+    💜 Se connecter avec Discord
+  </button>
+</div>
+
       <div id="roles"></div>
 
       <p class="notice">
@@ -285,6 +291,20 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
 
     render();
+    
+document.getElementById("btn-discord").addEventListener("click", async () => {
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "discord",
+    options: {
+      redirectTo: window.location.origin + window.location.pathname
+    }
+  });
+
+  if (error) {
+    alert("Impossible de se connecter à Discord : " + error.message);
+  }
+});
+
   </script>
 </body>
 </html>
