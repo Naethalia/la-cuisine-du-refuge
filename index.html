@@ -261,6 +261,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   console.log("Pseudo du Refuge :", profil.pseudo);
       currentUser.name = profil.pseudo;
+      currentUser.id = profil.discord_id;
 render();
 });
 
