@@ -171,6 +171,10 @@
 const SUPABASE_URL = "https://xfeehgjryuiiywfgmspg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_hEJv6qLlQfhtlDKmWT99Rw_cPB7XBlM";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const currentUser = {
+  id: "demo",
+  name: "Connexion Discord..."
+};
     // Un seul utilisateur fictif pour tester la page.
     supabaseClient.auth.getSession().then(({ data, error }) => {
   if (error) {
@@ -207,11 +211,10 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   }
 
   console.log("Pseudo du Refuge :", profil.pseudo);
+      currentUser.name = profil.pseudo;
+render();
 });
-    const currentUser = {
-      id: "demo",
-      name: "Vous (démo)"
-    };
+
 
     const roles = [
       {
