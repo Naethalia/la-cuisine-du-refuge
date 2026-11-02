@@ -183,6 +183,12 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     data.session ? "Connectée 💜" : "Non connectée"
   );
 });
+    supabaseClient.auth.getSession().then(({ data }) => {
+  console.log(
+    "Autorisation Discord disponible :",
+    data.session?.provider_token ? "Oui 💜" : "Non"
+  );
+});
     const currentUser = {
       id: "demo",
       name: "Vous (démo)"
