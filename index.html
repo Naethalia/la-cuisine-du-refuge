@@ -172,6 +172,17 @@ const SUPABASE_URL = "https://xfeehgjryuiiywfgmspg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_hEJv6qLlQfhtlDKmWT99Rw_cPB7XBlM";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     // Un seul utilisateur fictif pour tester la page.
+    supabaseClient.auth.getSession().then(({ data, error }) => {
+  if (error) {
+    console.error("Erreur de session Discord :", error.message);
+    return;
+  }
+
+  console.log(
+    "Session Discord :",
+    data.session ? "Connectée 💜" : "Non connectée"
+  );
+});
     const currentUser = {
       id: "demo",
       name: "Vous (démo)"
