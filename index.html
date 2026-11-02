@@ -262,7 +262,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   console.log("Pseudo du Refuge :", profil.pseudo);
       currentUser.name = profil.pseudo;
       currentUser.id = profil.discord_id;
-render();
+await chargerInscriptions();
 });
 
 
@@ -292,23 +292,62 @@ render();
     members: []
   }
 ];
+    async function chargerInscriptions() {
+  const { data, error } = await supabaseClient
+    .from("inscriptions")
+    .select("membre_id, poste")
+    .eq("soiree_id", 1);
 
-    function toggleRole(roleId) {
-      const role = roles.find(r => r.id === roleId);
-      if (!role) return;
+  if (error) {
+    console.error("Erreur de chargement des inscriptions :", error.message);
+    return;
+  }
 
-      const index = role.members.findIndex(
-        member => member.id === currentUser.id
-      );
+  for (const role of roles) {
+    role.members = (data || [])
+      .filter(inscription => inscription.poste === role.id)
+      .map(inscription => ({
+        id: inscription.membre_id,
+        name: inscription.membre_id === currentUser.id
+          ? currentUser.name
+          : "Membre du Refuge"
+      }));
+  }
 
-      if (index >= 0) {
-        role.members.splice(index, 1);
-      } else if (role.members.length < role.limit) {
-        role.members.push(currentUser);
-      }
+  render();
+}
 
-      render();
+async function toggleRole(roleId) {
+  const role = roles.find(r => r.id === roleId);
+  if (!role) return;
+
+  const { data: { user }, error: authError } =
+    await supabaseClient.auth.getUser();
+
+  if (authError || !user || currentUser.id === "demo") {
+    alert("💜 Connecte-toi avec Discord avant de choisir un poste.");
+    return;
+  }
+
+  const dejaInscrit = role.members.some(
+    member => member.id === currentUser.id
+  );
+
+  const { error } = await supabaseClient.rpc(
+    "gerer_inscription_sashimi",
+    {
+      p_poste: roleId,
+      p_action: dejaInscrit ? "desinscrire" : "inscrire"
     }
+  );
+
+  if (error) {
+    alert("Impossible de modifier ton inscription : " + error.message);
+    return;
+  }
+
+  await chargerInscriptions();
+}
 
     function render() {
       const container = document.getElementById("roles");
@@ -388,7 +427,7 @@ card.appendChild(image);
       }
     }
 
-    render();
+   chargerInscriptions();
     
 document.getElementById("btn-discord").addEventListener("click", async () => {
   const { error } = await supabaseClient.auth.signInWithOAuth({
