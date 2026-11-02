@@ -296,6 +296,7 @@ document.getElementById("btn-discord").addEventListener("click", async () => {
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: "discord",
     options: {
+      scopes: "identify email guilds.members.read",
       redirectTo: window.location.origin + window.location.pathname
     }
   });
