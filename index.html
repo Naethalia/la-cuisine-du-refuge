@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Cuisine du Refuge</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: #47375d;
+      background: linear-gradient(145deg, #f5eaff, #fff5f0, #e9e1ff);
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 15px 25px;
+    }
+
+    h1 {
+      margin: 0;
+      color: #784e9e;
+      font-size: clamp(28px, 6vw, 45px);
+    }
+
+    header p { color: #806b91; }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 15px 18px 60px;
+    }
+
+    .party {
+      background: rgba(255,255,255,.9);
+      border: 2px solid #e2ccef;
+      border-radius: 24px;
+      padding: 25px;
+      box-shadow: 0 10px 30px #8b6ba026;
+    }
+
+    .party h2 {
+      margin-top: 0;
+      color: #784e9e;
+    }
+
+    .info {
+      background: #f5edfb;
+      padding: 13px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+    }
+
+    .role {
+      border: 1px solid #e8d9ef;
+      border-radius: 17px;
+      padding: 17px;
+      margin: 15px 0;
+      background: #fff;
+    }
+
+    .role h3 {
+      margin: 0 0 7px;
+      color: #77529c;
+    }
+
+    .ingredient {
+      color: #7c7086;
+      font-size: 14px;
+    }
+
+    .members {
+      margin: 15px 0;
+      min-height: 25px;
+    }
+
+    .member {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f3eafb;
+      border-radius: 30px;
+      padding: 6px 12px 6px 6px;
+      margin: 4px;
+    }
+
+    .avatar {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #c5a2e5;
+      color: white;
+      font-weight: bold;
+    }
+
+    button {
+      background: #9065b7;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover { background: #74499b; }
+
+    button:disabled {
+      background: #d4cadb;
+      cursor: not-allowed;
+    }
+
+    .leave { background: #a77b8c; }
+
+    .notice {
+      font-size: 13px;
+      text-align: center;
+      color: #806b91;
+      margin-top: 25px;
+    }
+
+    @media (max-width: 600px) {
+      .party { padding: 17px; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🌸 La Cuisine du Refuge 🌸</h1>
+    <p>Un soupçon de magie, beaucoup de gourmandise !</p>
+  </header>
+
+  <main>
+    <section class="party">
+      <h2>🍣 Soirée Sashimi</h2>
+
+      <div class="info">
+        <strong>50 préparations</strong>
+        <p>Organisateur : Naethalia (exemple)</p>
+        <p>Choisissez les postes correspondant à vos ingrédients.</p>
+      </div>
+
+      <div id="roles"></div>
+
+      <p class="notice">
+        ✨ Version de démonstration : les inscriptions
+        ne sont pas encore enregistrées sur Internet.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    // Un seul utilisateur fictif pour tester la page.
+    const currentUser = {
+      id: "demo",
+      name: "Vous (démo)"
+    };
+
+    const roles = [
+      {
+        id: "starter",
+        name: "👑 Starter",
+        ingredient: "Pousses d'épice",
+        limit: 1,
+        members: []
+      },
+      {
+        id: "poisson",
+        name: "🐟 Poisson",
+        ingredient: "Poisson au choix",
+        limit: 1,
+        members: []
+      },
+      {
+        id: "riz",
+        name: "🍚 Riz",
+        ingredient: "Riz",
+        limit: Infinity,
+        members: []
+      }
+    ];
+
+    function toggleRole(roleId) {
+      const role = roles.find(r => r.id === roleId);
+      if (!role) return;
+
+      const index = role.members.findIndex(
+        member => member.id === currentUser.id
+      );
+
+      if (index >= 0) {
+        role.members.splice(index, 1);
+      } else if (role.members.length < role.limit) {
+        role.members.push(currentUser);
+      }
+
+      render();
+    }
+
+    function render() {
+      const container = document.getElementById("roles");
+      container.replaceChildren();
+
+      for (const role of roles) {
+        const joined = role.members.some(
+          member => member.id === currentUser.id
+        );
+
+        const full = role.members.length >= role.limit;
+        const card = document.createElement("div");
+        card.className = "role";
+
+        const title = document.createElement("h3");
+        title.textContent = role.name;
+        card.appendChild(title);
+
+        const ingredient = document.createElement("p");
+        ingredient.className = "ingredient";
+        ingredient.textContent =
+          "À apporter : " + role.ingredient;
+        card.appendChild(ingredient);
+
+        const places = document.createElement("p");
+        places.textContent = role.limit === Infinity
+          ? "Places illimitées"
+          : role.members.length + " / " + role.limit + " place";
+        card.appendChild(places);
+
+        const members = document.createElement("div");
+        members.className = "members";
+
+        if (role.members.length === 0) {
+          members.textContent = "Aucun inscrit pour le moment.";
+        }
+
+        for (const member of role.members) {
+          const badge = document.createElement("span");
+          badge.className = "member";
+
+          const avatar = document.createElement("span");
+          avatar.className = "avatar";
+          avatar.textContent = member.name[0];
+
+          const name = document.createElement("span");
+          name.textContent = member.name;
+
+          badge.append(avatar, name);
+          members.appendChild(badge);
+        }
+
+        card.appendChild(members);
+
+        const button = document.createElement("button");
+        button.textContent = joined
+          ? "Me désinscrire"
+          : full
+            ? "Poste complet"
+            : "Choisir ce poste";
+
+        button.disabled = full && !joined;
+        if (joined) button.className = "leave";
+
+        button.addEventListener("click", () => {
+          toggleRole(role.id);
+        });
+
+        card.appendChild(button);
+        container.appendChild(card);
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
