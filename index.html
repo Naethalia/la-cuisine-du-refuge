@@ -130,6 +130,9 @@
       button { width: 100%; }
     }
   </style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 </head>
 
 <body>
@@ -158,6 +161,10 @@
   </main>
 
   <script>
+
+const SUPABASE_URL = "https://xfeehgjryuiiywfgmspg.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_hEJv6qLlQfhtlDKmWT99Rw_cPB7XBlM";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     // Un seul utilisateur fictif pour tester la page.
     const currentUser = {
       id: "demo",
