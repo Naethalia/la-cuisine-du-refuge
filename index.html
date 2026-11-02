@@ -189,6 +189,25 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     data.session?.provider_token ? "Oui 💜" : "Non"
   );
 });
+    supabaseClient.auth.getSession().then(async ({ data }) => {
+  const session = data.session;
+
+  if (!session?.provider_token) return;
+
+  const { data: profil, error } =
+    await supabaseClient.functions.invoke("pseudo-discord-refuge", {
+      body: {
+        discordToken: session.provider_token
+      }
+    });
+
+  if (error || profil?.error) {
+    console.error("Erreur de récupération du pseudo Discord");
+    return;
+  }
+
+  console.log("Pseudo du Refuge :", profil.pseudo);
+});
     const currentUser = {
       id: "demo",
       name: "Vous (démo)"
