@@ -39,6 +39,14 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 .notice {font-size:13px; text-align:center; color:#806b91; margin-top:25px;}
 .future {text-align:center; max-width:430px; margin:70px auto; padding:28px; border:2px dashed #d8b3dc; border-radius:20px; background:#fffaf3;}
 .future p {line-height:1.7;}
+.poke-illustration {display:block; width:100%; height:auto; border-radius:20px; margin:0 auto 18px; border:2px solid #e2c2e6;}
+.poke-intro {text-align:center; line-height:1.65; margin:12px auto 20px; max-width:560px;}
+.poke-steps {display:grid; gap:12px;}
+.poke-step {background:linear-gradient(135deg,#fffefa,#fff2fa); border:2px solid #e6c5ed; border-radius:17px; padding:15px;}
+.poke-step h3 {margin:0 0 8px; color:#77529c; font-size:17px;}
+.poke-step p {margin:6px 0; line-height:1.5;}
+.poke-step .overprep {font-size:13px; color:#735b82; font-weight:bold;}
+.poke-note {background:#fff8ed; border:1px solid #dfc4e7; border-radius:14px; padding:14px; margin-top:20px; text-align:center; line-height:1.5;}
 .book-controls {display:flex; align-items:center; justify-content:center; gap:20px; margin:18px auto;}
 .book-controls button {min-width:120px;}
 #page-indicator {color:#784e9e; font-weight:bold; text-align:center;}
@@ -79,8 +87,23 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <div class="page-number">— 2 —</div>
 </section>
 <section class="page" data-page="2" aria-label="Page 3 : Poké Bowl">
-<h2>🥗 Poké Bowl</h2>
-<div class="future"><div style="font-size:48px">🥗🌸</div><p>Cette page accueillera bientôt l'illustration et les postes de préparation du Poké Bowl.</p><p><strong>En préparation</strong> — les inscriptions ne sont pas encore ouvertes ici.</p></div>
+<img src="illustration Poké bowl.png" alt="Reth et la renarde violette présentent le Poké Bowl de Palia" class="poke-illustration">
+<h2>🥗 Poké Bowl de Palia</h2>
+<p class="poke-intro">Préparez ensemble le Poké Bowl ! Voici les 11 étapes de la recette, avec les indications d’Over Prep de notre tableau.</p>
+<div class="poke-steps" aria-label="Étapes de préparation du Poké Bowl">
+<article class="poke-step"><h3>1. Mélange 1 (départ)</h3><p>1 vinaigre</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>2. Plan de préparation</h3><p>1 poisson → filet</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>3. Plan de préparation</h3><p>1 tomate → tomate coupée</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>4. Plan de préparation</h3><p>1 oignon → oignon coupé</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>5. Plan de préparation</h3><p>1 ail sauvage → ail émincé</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>6. Plan de préparation</h3><p>1 pousse d’épice → pousse émincée</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>7. Plan de préparation</h3><p>1 racine ardente → racine émincée</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>8. Mélange 2</h3><p>1 gousse de Dari → Dari moulu</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>9. Mélange 2</h3><p>Tomate + oignon + épice → salsa</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>10. Mélange 2</h3><p>Dari moulu + ail + pousse d’épice + racine ardente → mélange céleste</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>11. Mélange 1 (final)</h3><p>Filet + salsa + mélange céleste</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
+</div>
+<p class="poke-note">💜 Les postes sont présentés pour préparer la soirée. Les inscriptions au Poké Bowl ouvriront après la configuration de sa soirée indépendante.</p>
 <div class="page-number">— 3 —</div>
 </section>
 <section class="page" data-page="3" aria-label="Page 4 : Gâteau de fête">
