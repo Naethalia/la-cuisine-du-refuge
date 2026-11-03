@@ -61,10 +61,85 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
  .book-controls {gap:9px;}
  .book-controls button {min-width:0; padding:11px 13px;}
 }
+
+/* La petite course enchantée : visible uniquement pendant un vrai chargement */
+.magic-loading[hidden] { display:none!important; }
+.magic-loading { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:rgba(255,249,242,.82); backdrop-filter:blur(5px); }
+.magic-loading-card { width:min(90vw,360px); padding:26px 20px; text-align:center; border:3px solid #d9b3e6; border-radius:25px; background:#fffaf3; box-shadow:0 15px 45px #75518b33; }
+.magic-scene { height:112px; position:relative; overflow:hidden; }
+.magic-fox { position:absolute; left:23%; bottom:8px; font-size:56px; animation:fox-run .55s ease-in-out infinite alternate; }
+.magic-butterfly { position:absolute; left:63%; top:8px; font-size:38px; animation:butterfly-fly 1.5s ease-in-out infinite alternate; }
+.magic-sparkles {position:absolute; left:15%; bottom:12px; color:#b58bcf; font-size:22px; animation:sparkle 1s ease-in-out infinite alternate;}
+.magic-loading-card p { color:#80569d; font-weight:bold; margin:12px 0 0; }
+@keyframes fox-run {from{transform:translate(0,0) rotate(-5deg)}to{transform:translate(13px,-8px) rotate(4deg)}}
+@keyframes butterfly-fly {from{transform:translate(-9px,16px) rotate(-14deg)}to{transform:translate(12px,-10px) rotate(14deg)}}
+@keyframes sparkle {from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.2)}}
+@media (prefers-reduced-motion:reduce) {.magic-fox,.magic-butterfly,.magic-sparkles{animation:none}}
+
+/* Parchemin enchanté superposé au carnet */
+.parchment-backdrop[hidden] {display:none!important}
+.parchment-backdrop {position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px 12px;background:rgba(40,24,57,.60);backdrop-filter:blur(5px);animation:veil-in .25s ease-out}
+.organize-panel {position:relative;width:min(100%,610px);max-height:min(92vh,850px);overflow-y:auto;overscroll-behavior:contain;padding:36px clamp(23px,5vw,55px) 28px;text-align:left;color:#634b62;border:8px solid #b68b68;border-radius:22px 22px 36px 36px;background:radial-gradient(ellipse at 50% 20%,#fff9e9 0%,#f9e9c9 74%,#e8cca2 100%);box-shadow:0 0 0 3px #e9d3ac inset,0 0 0 7px #fff4d8 inset,0 24px 65px #170d2180;animation:unroll .48s cubic-bezier(.2,.8,.2,1);transform-origin:top center}
+.organize-panel::before,.organize-panel::after {content:"";position:sticky;display:block;height:13px;border-radius:50%;background:linear-gradient(#d8b28a,#9f7459,#ead1a8);box-shadow:0 3px 6px #7c573b50;z-index:1}
+.organize-panel::before {top:-36px;margin:-28px -32px 22px}
+.organize-panel::after {bottom:-28px;margin:24px -32px -22px}
+.organize-panel h3 {text-align:center;font-size:clamp(24px,4vw,32px);color:#82539c;margin:8px 0 12px}
+.organize-panel > p {text-align:center;line-height:1.55}
+.parchment-decoration,.parchment-footer {text-align:center;color:#a16aa9;letter-spacing:5px}
+.parchment-footer {font-size:24px;letter-spacing:12px;margin-top:12px}
+.parchment-x {position:absolute;top:22px;right:18px;z-index:2;background:#85579b;border-radius:50%;width:38px;height:38px;padding:0;font-size:27px;line-height:1}
+.organize-panel label {display:block;margin:13px 0 5px;color:#77529c;font-weight:bold}
+.organize-panel input,.organize-panel select,.organize-panel textarea {display:block;width:100%;padding:11px;border:1px solid #c9a8d9;border-radius:10px;background:#fffdf6;color:#47375d;font:inherit}
+.organize-panel textarea {min-height:75px;resize:vertical}
+.organize-panel .form-actions {display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.organize-status {margin-top:12px;line-height:1.5}
+@keyframes veil-in {from{opacity:0}to{opacity:1}}
+@keyframes unroll {from{opacity:.5;transform:scaleY(.72) translateY(-35px)}to{opacity:1;transform:scaleY(1) translateY(0)}}
+@media(max-width:480px){.parchment-backdrop{padding:8px}.organize-panel{max-height:96vh;padding:32px 23px 20px}.organize-panel::before{margin-left:-12px;margin-right:-12px}.organize-panel::after{margin-left:-12px;margin-right:-12px}}
+@media(prefers-reduced-motion:reduce){.parchment-backdrop,.organize-panel{animation:none}}
+
+/* Tableau des soirées du Refuge */
+.evenings {max-width:1100px;margin:0 auto 48px;padding:0 18px}
+.evenings-panel {background:#fffaf2;border:3px solid #d9b5e5;border-radius:24px;padding:24px;box-shadow:0 10px 30px #79518b25}
+.evenings-panel h2 {text-align:center;color:#82539c;margin:0 0 10px}
+.evenings-lead {text-align:center;color:#786588;line-height:1.6}
+.evenings-toolbar {display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.evenings-toolbar select {padding:10px;border:1px solid #c9a8d9;border-radius:10px;background:#fff;color:#47375d}
+.evenings-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:15px;margin-top:18px}
+.evening-card {border:2px solid #e4c8e8;border-radius:18px;padding:18px;background:linear-gradient(145deg,#fff,#fff3fa)}
+.evening-card h3 {color:#82539c;margin:0 0 10px}
+.evening-card p {margin:8px 0;line-height:1.45;overflow-wrap:anywhere}
+.evening-card button {margin-top:8px}
+.evenings-message {text-align:center;color:#806b91;padding:12px}
+.evening-details {margin-top:18px;padding:18px;border:2px solid #c9a8d9;border-radius:18px;background:#fffdf7}
+.evening-details[hidden] {display:none!important}
+.evening-details h3 {color:#82539c}
+.evening-details p {line-height:1.6;overflow-wrap:anywhere}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
+<div id="magic-loading" class="magic-loading" role="status" aria-live="polite" aria-label="Chargement en cours" hidden>
+ <div class="magic-loading-card"><div class="magic-scene" aria-hidden="true"><span class="magic-sparkles">✦ ✨</span><span class="magic-fox">🦊</span><span class="magic-butterfly">🦋</span></div><p>Un peu de magie se prépare… 💜</p></div>
+</div>
+<div class="parchment-backdrop" id="parchment-backdrop" hidden>
+<div class="organize-panel" id="organize-panel" role="dialog" aria-modal="true" aria-labelledby="parchment-title" tabindex="-1">
+<button type="button" class="parchment-x" id="parchment-x" aria-label="Fermer le parchemin">×</button>
+<div class="parchment-decoration" aria-hidden="true">✦ ❀ ✦ 🦋 ✦ ❀ ✦</div>
+<h3 id="parchment-title">📜 Préparons ta soirée !</h3>
+<p>Connecte-toi avec Discord pour créer une soirée pour les membres du Refuge.</p>
+<form id="organize-form">
+<label for="soiree-recette">🍲 Recette</label>
+<select id="soiree-recette" required><option value="Sashimi">🍣 Sashimi</option><option value="Poké Bowl">🥗 Poké Bowl</option><option value="Gâteau de fête">🎂 Gâteau de fête</option><option value="Hamburger de haricots">🍔 Hamburger de haricots</option><option value="Chili végétarien">🌶️ Chili végétarien</option><option value="Bahari de Muujin">🍲 Bahari de Muujin</option></select>
+<label for="soiree-date">📅 Date</label><input id="soiree-date" type="date" required>
+<label for="soiree-heure">🕗 Heure</label><input id="soiree-heure" type="time" value="20:00" required>
+<label for="soiree-quantite">🍽️ Nombre de préparations</label><input id="soiree-quantite" type="number" min="1" step="1" value="50" required>
+<label for="soiree-description">📝 Petit mot pour les participants (facultatif)</label><textarea id="soiree-description" maxlength="1000" placeholder="Une soirée gourmande entre amis…"></textarea>
+<div class="form-actions"><button type="submit" id="submit-organize">💜 Créer ma soirée</button><button type="button" id="close-organize" class="leave">Annuler</button></div>
+<p id="organize-status" class="organize-status" role="status" aria-live="polite"></p>
+</form>
+<div class="parchment-footer" aria-hidden="true">🦊 ✨ 🦋</div>
+</div></div>
 <header class="site-header">
 <h1>📖 La Cuisine Enchantée du Refuge 🌸</h1>
 <p>Un soupçon de magie, beaucoup de gourmandise !</p>
@@ -76,7 +151,9 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <h2>Bienvenue dans la Cuisine du Refuge</h2>
 <p>Entre dans notre petit livre de gourmandises enchantées ! Ici, chaque recette est l'occasion de se retrouver, de partager nos ingrédients et de préparer ensemble de jolies soirées dans Palia.</p>
 <p>Feuillette le carnet, découvre les recettes et choisis le poste qui te plaît pour participer à l'aventure.</p>
-<p class="signature">Avec une pincée de magie et beaucoup de bonne humeur 💜</p></div>
+<p class="signature">Avec une pincée de magie et beaucoup de bonne humeur 💜</p>
+<button id="open-organize" type="button" aria-expanded="false" aria-controls="organize-panel">✨ Organiser ma soirée cuisine</button>
+</div>
 <div class="page-number">— 1 —</div>
 </section>
 <section class="page" data-page="1" aria-label="Page 2 : Sashimi">
@@ -250,6 +327,18 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 </div>
 <nav class="book-controls" aria-label="Navigation du livre"><button id="prev-page" type="button">← Précédent</button><span id="page-indicator" aria-live="polite"></span><button id="next-page" type="button">Suivant →</button></nav>
 </main>
+
+<section class="evenings" aria-labelledby="evenings-title">
+ <div class="evenings-panel">
+  <h2 id="evenings-title">🌸 Les soirées du Refuge</h2>
+  <p class="evenings-lead">Retrouve les soirées organisées par les membres. Les inscriptions aux autres recettes seront activées lorsque leurs postes seront configurés.</p>
+  <div class="evenings-toolbar"><label for="evenings-filter">Recette : <select id="evenings-filter"><option value="">Toutes les recettes</option><option>Sashimi</option><option>Poké Bowl</option><option>Gâteau de fête</option><option>Hamburger de haricots</option><option>Chili végétarien</option><option>Bahari de Muujin</option></select></label><button id="refresh-evenings" type="button">↻ Actualiser les soirées</button></div>
+  <p id="evenings-message" class="evenings-message" role="status" aria-live="polite">Chargement des soirées…</p>
+  <div id="evenings-grid" class="evenings-grid"></div>
+  <div id="evening-details" class="evening-details" hidden tabindex="-1"></div>
+ </div>
+</section>
+
 <script>
 (function(){
  const pages=Array.from(document.querySelectorAll('.page'));
@@ -274,9 +363,138 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 </script>
   <script>
 
+
+// Compteur pour éviter de cacher l'animation si plusieurs requêtes se chevauchent.
+let magicLoadingCount = 0;
+function showMagicLoading() { magicLoadingCount++; document.getElementById('magic-loading').hidden = false; }
+function hideMagicLoading() { magicLoadingCount = Math.max(0, magicLoadingCount-1); if (!magicLoadingCount) document.getElementById('magic-loading').hidden = true; }
+async function withMagicLoading(action) { showMagicLoading(); try { return await action(); } finally { hideMagicLoading(); } }
+
 const SUPABASE_URL = "https://xfeehgjryuiiywfgmspg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_hEJv6qLlQfhtlDKmWT99Rw_cPB7XBlM";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Création d'une soirée : la validation finale est assurée côté Supabase.
+const organizePanel = document.getElementById('organize-panel');
+const organizeBackdrop = document.getElementById('parchment-backdrop');
+const organizeStatus = document.getElementById('organize-status');
+const organizeOpen = document.getElementById('open-organize');
+let previousFocus = null;
+function setOrganizeOpen(open) {
+  if (open) previousFocus = document.activeElement;
+  organizeBackdrop.hidden = !open;
+  document.body.style.overflow = open ? 'hidden' : '';
+  organizeOpen.setAttribute('aria-expanded', String(open));
+  if (open) organizePanel.focus();
+  else if (previousFocus) previousFocus.focus();
+}
+organizeOpen.addEventListener('click', () => setOrganizeOpen(true));
+document.getElementById('close-organize').addEventListener('click', () => setOrganizeOpen(false));
+document.getElementById('parchment-x').addEventListener('click', () => setOrganizeOpen(false));
+organizeBackdrop.addEventListener('click', event => {if (event.target === organizeBackdrop) setOrganizeOpen(false);});
+document.addEventListener('keydown', event => {
+  if (organizeBackdrop.hidden) return;
+  if (event.key === 'Escape') {setOrganizeOpen(false);return;}
+  if (event.key === 'Tab') {
+    const focusable = Array.from(organizePanel.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])'));
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === organizePanel)) {event.preventDefault();last.focus();}
+    else if (!event.shiftKey && document.activeElement === last) {event.preventDefault();first.focus();}
+  }
+});
+document.getElementById('soiree-date').min = new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+document.getElementById('organize-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const submit = document.getElementById('submit-organize');
+  if (submit.disabled) return;
+  organizeStatus.textContent = '';
+  const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+  if (authError || !user || !user.identities?.some(i => i.provider === 'discord')) {
+    organizeStatus.textContent = '💜 Connecte-toi avec Discord avant de créer une soirée (bouton sur la page Sashimi).';
+    return;
+  }
+  const date = document.getElementById('soiree-date').value;
+  const heure = document.getElementById('soiree-heure').value;
+  const nombre = Number(document.getElementById('soiree-quantite').value);
+  if (!date || !heure || !Number.isSafeInteger(nombre) || nombre < 1) {
+    organizeStatus.textContent = 'Vérifie la date, l’heure et le nombre de préparations.';
+    return;
+  }
+  // Horodatage local, sans imposer de fuseau UTC à l'utilisateur.
+  const dateSoiree = new Date(`${date}T${heure}:00`);
+  if (Number.isNaN(dateSoiree.getTime()) || dateSoiree.getTime() < Date.now()) {
+    organizeStatus.textContent = 'Choisis une date et une heure à venir.';
+    return;
+  }
+  submit.disabled = true;
+  try {
+    const { data, error } = await withMagicLoading(() => supabaseClient.rpc('creer_soiree', {
+      p_recette: document.getElementById('soiree-recette').value,
+      p_nombre_preparations: nombre,
+      p_date_soiree: dateSoiree.toISOString(),
+      p_description: document.getElementById('soiree-description').value.trim() || null
+    }));
+    if (error) throw error;
+    organizeStatus.textContent = `🎉 Ta soirée a été créée ! Référence : ${data}. Elle est enregistrée dans le Refuge.`;
+    document.getElementById('organize-form').reset();
+    await loadEvenings();
+  } catch (error) {
+    console.error('Création de soirée impossible :',error);
+    organizeStatus.textContent = 'Impossible de créer la soirée pour le moment : ' + (error.message || 'erreur inconnue');
+  } finally { submit.disabled = false; }
+});
+
+
+// Consultation des soirées : lecture seule, aucune modification des inscriptions existantes.
+const eveningGrid = document.getElementById('evenings-grid');
+const eveningMessage = document.getElementById('evenings-message');
+const eveningDetails = document.getElementById('evening-details');
+let allEvenings = [];
+const recipeIcons = {'Sashimi':'🍣','Poké Bowl':'🥗','Gâteau de fête':'🎂','Hamburger de haricots':'🍔','Chili végétarien':'🌶️','Bahari de Muujin':'🍲'};
+function eveningDate(value) {
+  if (!value) return 'Date non précisée';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? String(value) : new Intl.DateTimeFormat('fr-FR',{dateStyle:'full',timeStyle:'short'}).format(date);
+}
+function addText(parent, tag, value) { const element=document.createElement(tag);element.textContent=value;parent.appendChild(element);return element; }
+function renderEvenings() {
+  eveningGrid.replaceChildren();
+  eveningDetails.hidden=true;
+  const filter=document.getElementById('evenings-filter').value;
+  const filtered=allEvenings.filter(item=>!filter || item.recette===filter);
+  eveningMessage.textContent=filtered.length ? `${filtered.length} soirée(s) à découvrir` : 'Aucune soirée ouverte pour cette sélection pour le moment.';
+  for (const evening of filtered) {
+    const card=document.createElement('article');card.className='evening-card';
+    addText(card,'h3',`${recipeIcons[evening.recette]||'🍲'} ${evening.titre||'Soirée '+evening.recette}`);
+    addText(card,'p','📅 '+eveningDate(evening.date_soiree));
+    addText(card,'p','🍽️ '+evening.nombre_preparations+' préparations');
+    if (evening.description) addText(card,'p',evening.description);
+    const button=document.createElement('button');button.type='button';button.textContent='Voir les détails';
+    button.addEventListener('click',()=>{
+      eveningDetails.replaceChildren();
+      addText(eveningDetails,'h3',evening.titre||'Soirée '+evening.recette);
+      addText(eveningDetails,'p','📅 '+eveningDate(evening.date_soiree));
+      addText(eveningDetails,'p','🍽️ '+evening.nombre_preparations+' préparations');
+      addText(eveningDetails,'p','📖 Recette : '+evening.recette);
+      if (evening.description) addText(eveningDetails,'p',evening.description);
+      addText(eveningDetails,'p','💜 Les inscriptions à cette soirée seront disponibles lorsque les postes correspondants seront configurés. Le système Sashimi existant reste accessible dans le carnet.');
+      eveningDetails.hidden=false;eveningDetails.focus();
+    });
+    card.appendChild(button);eveningGrid.appendChild(card);
+  }
+}
+async function loadEvenings() {
+  eveningMessage.textContent='Chargement des soirées…';
+  const {data,error}=await supabaseClient.from('soirees')
+    .select('id,titre,recette,date_soiree,nombre_preparations,description,statut')
+    .eq('statut','ouverte').order('date_soiree',{ascending:true}).limit(100);
+  if(error){console.error('Lecture des soirées :',error);eveningMessage.textContent='Impossible de charger les soirées. Vérifie les autorisations de lecture Supabase.';return;}
+  allEvenings=data||[];renderEvenings();
+}
+document.getElementById('refresh-evenings').addEventListener('click',loadEvenings);
+document.getElementById('evenings-filter').addEventListener('change',renderEvenings);
+loadEvenings();
+
     supabaseClient
   .from("soirees")
   .select("id, titre, recette, nombre_preparations, statut")
@@ -362,6 +580,7 @@ await chargerInscriptions();
   }
 ];
     async function chargerInscriptions() {
+  return withMagicLoading(async () => {
   const { data, error } = await supabaseClient
     .from("inscriptions")
     .select("membre_id, poste")
@@ -384,6 +603,7 @@ await chargerInscriptions();
   }
 
   render();
+  });
 }
 
 async function toggleRole(roleId) {
@@ -402,13 +622,13 @@ async function toggleRole(roleId) {
     member => member.id === currentUser.id
   );
 
-  const { error } = await supabaseClient.rpc(
+  const { error } = await withMagicLoading(() => supabaseClient.rpc(
     "gerer_inscription_sashimi",
     {
       p_poste: roleId,
       p_action: dejaInscrit ? "desinscrire" : "inscrire"
     }
-  );
+  ));
 
   if (error) {
     alert("Impossible de modifier ton inscription : " + error.message);
