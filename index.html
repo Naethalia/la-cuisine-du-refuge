@@ -118,6 +118,15 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 .evening-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:14px}
 .evening-post{background:linear-gradient(135deg,#fff,#fff3fa);border:2px solid #e5c7eb;border-radius:16px;padding:14px}
 .evening-post h4{color:#82539c;margin:0 0 8px}.evening-post p{margin:8px 0;line-height:1.45}
+
+.recipe-selection{margin:14px 0 20px;padding:14px;border:2px solid #d9b5e5;border-radius:16px;background:#fffaf3;text-align:center}
+.recipe-selection label{display:block;font-weight:bold;color:#77529c;margin-bottom:8px}
+.recipe-selection select{max-width:100%;width:min(100%,440px);padding:10px;border:1px solid #c9a8d9;border-radius:10px;color:#47375d;background:#fff}
+.recipe-selection p{font-size:14px;line-height:1.5;margin:9px 0}
+.recipe-role-meta{margin-top:12px;padding-top:10px;border-top:1px solid #ead6ee}
+.recipe-role-meta .members{margin:8px 0}
+.recipe-role-meta button{margin-top:6px}
+.recipe-role-meta .overprep{margin:6px 0}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -136,7 +145,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <select id="soiree-recette" required><option value="Sashimi">🍣 Sashimi</option><option value="Poké Bowl">🥗 Poké Bowl</option><option value="Gâteau de fête">🎂 Gâteau de fête</option><option value="Hamburger de haricots">🍔 Hamburger de haricots</option><option value="Chili végétarien">🌶️ Chili végétarien</option><option value="Bahari de Muujin">🍲 Bahari de Muujin</option></select>
 <label for="soiree-date">📅 Date</label><input id="soiree-date" type="date" required>
 <label for="soiree-heure">🕗 Heure</label><input id="soiree-heure" type="time" value="20:00" required>
-<label for="soiree-quantite">🍽️ Nombre de préparations</label><input id="soiree-quantite" type="number" min="1" step="1" value="50" required>
+<label for="soiree-quantite">🍽️ Nombre de préparations</label><input id="soiree-quantite" type="number" min="1" step="1" value="1" required>
 <label for="soiree-description">📝 Petit mot pour les participants (facultatif)</label><textarea id="soiree-description" maxlength="1000" placeholder="Une soirée gourmande entre amis…"></textarea>
 <div class="form-actions"><button type="submit" id="submit-organize">💜 Créer ma soirée</button><button type="button" id="close-organize" class="leave">Annuler</button></div>
 <p id="organize-status" class="organize-status" role="status" aria-live="polite"></p>
@@ -162,9 +171,9 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <section class="page" data-page="1" aria-label="Page 2 : Sashimi">
 <img src="soiree-sashimi.png" alt="Notre petite renarde violette et Reth pour la soirée Sashimi" class="sashimi-illustration">
 <h2>🍣 Soirée Sashimi</h2>
-<div class="info"><strong>🍣 Sashimi — préparations au choix</strong><p>Choisis une soirée Sashimi dans « Les soirées du Refuge » pour connaître son nombre de préparations et réserver ses postes.</p><p>Choisissez les postes correspondant à vos ingrédients.</p></div>
+<div class="info"><strong>🍣 Sashimi — préparations au choix</strong><p>Sélectionne une soirée Sashimi ci-dessous pour retrouver son nombre de préparations et réserver ton poste.</p><p>Choisissez les postes correspondant à vos ingrédients.</p></div>
 <div id="discord-connexion" style="text-align:center; margin:20px 0;"><button id="btn-discord" type="button">💜 Se connecter avec Discord</button></div>
-<div class="postes-cuisine"><div id="roles"></div></div>
+<div id="recipe-selection-1" class="recipe-selection"></div><div class="postes-cuisine"><div id="roles"></div></div>
 <p class="notice">💜 Les inscriptions sont enregistrées automatiquement. Connectez-vous avec Discord pour réserver votre poste de cuisine ! 🦊</p>
 <div class="page-number">— 2 —</div>
 </section>
@@ -172,7 +181,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img src="illustration Poké bowl.png" alt="Reth et la renarde violette présentent le Poké Bowl de Palia" class="poke-illustration">
 <h2>🥗 Poké Bowl de Palia</h2>
 <p class="poke-intro">Préparez ensemble le Poké Bowl ! Voici les 11 étapes de la recette, avec les indications d’Over Prep de notre tableau.</p>
-<div class="poke-steps" aria-label="Étapes de préparation du Poké Bowl">
+<div id="recipe-selection-2" class="recipe-selection"></div><div class="poke-steps" aria-label="Étapes de préparation du Poké Bowl">
 <article class="poke-step"><h3>1. Mélange 1 (départ)</h3><img class="poke-step-image" src="Vinaigre.png" alt="Illustration de l’étape 1 du Poké Bowl" loading="lazy"><p>1 vinaigre</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>2. Plan de préparation</h3><img class="poke-step-image" src="Poisson.png" alt="Illustration de l’étape 2 du Poké Bowl" loading="lazy"><p>1 poisson → filet</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>3. Plan de préparation</h3><img class="poke-step-image" src="Tomate.png" alt="Illustration de l’étape 3 du Poké Bowl" loading="lazy"><p>1 tomate → tomate coupée</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
@@ -185,14 +194,14 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>10. Mélange 2</h3><img class="poke-step-image" src="Mélange divin.png" alt="Illustration de l’étape 10 du Poké Bowl" loading="lazy"><p>Dari moulu + ail + pousse d’épice + racine vivace → mélange divin</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>11. Mélange 1 (final)</h3><img class="poke-step-image" src="Poké Bowl couv.png" alt="Poké Bowl terminé, assemblage final" loading="lazy"><p>Filet + salsa + mélange divin</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ».</p>
+<p class="poke-note">💜 Sélectionne une soirée ci-dessus pour réserver directement ton poste.</p>
 <div class="page-number">— 3 —</div>
 </section>
 <section class="page" data-page="3" aria-label="Page 4 : Gâteau de fête">
 <img src="illustration gâteau de fête.png" alt="Gâteau de fête de Palia avec notre renarde" class="poke-illustration">
 <h2>🎂 Gâteau de fête</h2>
 <p class="poke-intro">Les 8 étapes de préparation, avec les quantités nécessaires et les indications d’Over Prep.</p>
-<div class="poke-steps" aria-label="Étapes de préparation du Gâteau de fête">
+<div id="recipe-selection-3" class="recipe-selection"></div><div class="poke-steps" aria-label="Étapes de préparation du Gâteau de fête">
 <article class="poke-step"><h3>1. Plan de préparation (départ)</h3><img class="cake-step-image" src="Gélifié.png" alt="Illustration de l’étape 1 du Gâteau de fête" loading="lazy"><p>1 myrtille</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>2. Station de mélange</h3><img class="cake-step-image" src="Stévia.png" alt="Illustration de l’étape 2 du Gâteau de fête" loading="lazy"><p>1 stévia → stévia moulue</p><p class="overprep">Over Prep : ✅ Oui · 4 personnes nécessaires</p></article>
 <article class="poke-step"><h3>3. Station de mélange</h3><img class="cake-step-image" src="Pâte à gâteaux.png" alt="Illustration de l’étape 3 du Gâteau de fête" loading="lazy"><p>1 beurre + 1 œuf + 1 farine + 1 stévia moulue → pâte à gâteau</p><p class="overprep">Over Prep : ✅ Oui · 3 personnes nécessaires</p></article>
@@ -202,14 +211,14 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>7. Plan de préparation</h3><img class="cake-step-image" src="Gélifié.png" alt="Illustration de l’étape 7 du Gâteau de fête" loading="lazy"><p>1 couche de gâteau + 1 glaçage aux fruits → couche garnie</p><p class="overprep">Over Prep : ✅ Oui · 3 personnes nécessaires</p></article>
 <article class="poke-step"><h3>8. Plan de préparation (final)</h3><img class="cake-step-image" src="gateau_fete_aquarelle.png" alt="Gâteau de fête terminé" loading="lazy"><p>3 couches garnies + 1 glaçage principal</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ».</p>
+<p class="poke-note">💜 Sélectionne une soirée ci-dessus pour réserver directement ton poste.</p>
 <div class="page-number">— 4 —</div>
 </section>
 <section class="page" data-page="4" aria-label="Page 5 : 🍔 Hamburger de haricots">
 <img src="Illustration Hamburger de Haricots.png" class="poke-illustration" alt="Illustration principale : 🍔 Hamburger de haricots" loading="lazy">
 <h2>🍔 Hamburger de haricots</h2>
 <p class="poke-intro">14 étapes de préparation, avec les quantités nécessaires et les indications d’Over Prep.</p>
-<div class="poke-steps">
+<div id="recipe-selection-4" class="recipe-selection"></div><div class="poke-steps">
 <article class="poke-step"><h3>1. Plan de préparation 1 (départ)</h3>
 <p>Lancer la recette</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>2. Plan de préparation 2</h3>
@@ -240,14 +249,14 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img class="cake-step-image" src="burger_haricots_aquarelle.png" alt="🍔 Hamburger de haricots terminé" loading="lazy">
 <p>Fromage + tomate + oignon + galette + sauce + pain → Burger aux haricots</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ». Les illustrations des autres postes seront ajoutées progressivement.</p>
+<p class="poke-note">💜 Sélectionne une soirée ci-dessus pour réserver directement ton poste. Les illustrations des autres postes seront ajoutées progressivement.</p>
 <div class="page-number">— 5 —</div>
 </section>
 <section class="page" data-page="5" aria-label="Page 6 : 🌶️ Chili végétarien">
 <img src="Illustration chili végétarien.png" class="poke-illustration" alt="Illustration principale : 🌶️ Chili végétarien" loading="lazy">
 <h2>🌶️ Chili végétarien</h2>
 <p class="poke-intro">15 étapes de préparation, avec les quantités nécessaires et les indications d’Over Prep.</p>
-<div class="poke-steps">
+<div id="recipe-selection-5" class="recipe-selection"></div><div class="poke-steps">
 <article class="poke-step"><h3>1. Cuisinière 1 (départ)</h3>
 <p>3 haricots papillons + 1 sel</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>2. Plan de préparation</h3>
@@ -280,14 +289,14 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img class="cake-step-image" src="chili_vegetarien_aquarelle.png" alt="🌶️ Chili végétarien terminé" loading="lazy">
 <p>Ajouter le mélange de chili et remuer → Chili végétarien</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ». Les illustrations des autres postes seront ajoutées progressivement.</p>
+<p class="poke-note">💜 Sélectionne une soirée ci-dessus pour réserver directement ton poste. Les illustrations des autres postes seront ajoutées progressivement.</p>
 <div class="page-number">— 6 —</div>
 </section>
 <section class="page" data-page="6" aria-label="Page 7 : 🍲 Bahari de Muujin">
 <img src="Illustration Bahari de Muujin.png" class="poke-illustration" alt="Illustration principale : 🍲 Bahari de Muujin" loading="lazy">
 <h2>🍲 Bahari de Muujin</h2>
 <p class="poke-intro">17 étapes de préparation, avec les quantités nécessaires et les indications d’Over Prep.</p>
-<div class="poke-steps">
+<div id="recipe-selection-6" class="recipe-selection"></div><div class="poke-steps">
 <article class="poke-step"><h3>1. Four (départ)</h3>
 <p>1 beurre</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>2. Plan de préparation</h3>
@@ -324,7 +333,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img class="cake-step-image" src="bahari_muujin_aquarelle.png" alt="🍲 Bahari de Muujin terminé" loading="lazy">
 <p>Bahari non cuit → Bahari de Muujin</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ». Les illustrations des autres postes seront ajoutées progressivement.</p>
+<p class="poke-note">💜 Sélectionne une soirée ci-dessus pour réserver directement ton poste. Les illustrations des autres postes seront ajoutées progressivement.</p>
 <div class="page-number">— 7 —</div>
 </section>
 </div>
@@ -480,7 +489,8 @@ function renderEvenings() {
       addText(eveningDetails,'p','🍽️ '+evening.nombre_preparations+' préparations');
       addText(eveningDetails,'p','📖 Recette : '+evening.recette);
       if (evening.description) addText(eveningDetails,'p',evening.description);
-      renderEveningRoles(evening).catch(err => { console.error(err); addText(eveningDetails,'p','Impossible de charger les postes : '+err.message); });
+      selectRecipeEvening(evening);
+       renderEveningRoles(evening).catch(err => { console.error(err); addText(eveningDetails,'p','Impossible de charger les postes : '+err.message); });
       eveningDetails.hidden=false;eveningDetails.focus();
     });
     card.appendChild(button);eveningGrid.appendChild(card);
@@ -515,9 +525,9 @@ async function renderEveningRoles(evening) {
   const posts=getEveningPosts(evening.recette);
   const {data:identities}=await supabaseClient.auth.getUser();
   const discordId=identities?.user?.identities?.find(x=>x.provider==='discord')?.identity_data?.sub;
-  if (version!==roleViewVersion || eveningDetails.hidden) return;
+  if (version!==roleViewVersion) return;
   const {data,error}=await supabaseClient.from('inscriptions').select('membre_id,poste').eq('soiree_id',evening.id);
-  if (version!==roleViewVersion || eveningDetails.hidden) return;
+  if (version!==roleViewVersion) return;
   if(error){status.textContent='Impossible de lire les inscriptions : '+error.message;return;}
   status.textContent=discordId?'💜 Tu peux réserver ou libérer un poste.':'💜 Connecte-toi avec Discord (bouton sur la page Sashimi) pour réserver un poste.';
   for(const post of posts){
@@ -542,241 +552,129 @@ async function renderEveningRoles(evening) {
     card.appendChild(button);area.appendChild(card);
   }
 }
+
+// Chaque page du carnet utilise les inscriptions de la soirée choisie.
+const selectedRecipeEvenings = {};
+const recipePageIds = {'Sashimi':1,'Poké Bowl':2,'Gâteau de fête':3,'Hamburger de haricots':4,'Chili végétarien':5,'Bahari de Muujin':6};
+let recipeRenderVersion = 0;
+function selectRecipeEvening(evening) {
+  if (!evening || !(evening.recette in recipePageIds)) return;
+  selectedRecipeEvenings[evening.recette] = String(evening.id);
+  renderRecipePages();
+}
+function recipeEveningSelect(recipe,pageId) {
+  const host=document.getElementById('recipe-selection-'+pageId);
+  if (!host) return null;
+  host.replaceChildren();
+  const label=addText(host,'label','📅 Choisir une soirée '+recipe);
+  const select=document.createElement('select');
+  const selectId='recipe-evening-'+pageId;select.id=selectId;label.htmlFor=selectId;
+  const list=allEvenings.filter(e=>e.recette===recipe);
+  if (!list.length) {
+    const option=document.createElement('option');option.textContent='Aucune soirée ouverte pour cette recette';option.value='';select.appendChild(option);select.disabled=true;
+    host.appendChild(select);
+    addText(host,'p','💜 Crée une soirée depuis la première page du carnet, ou attends qu’un membre en organise une.');
+    return null;
+  }
+  const chosen=selectedRecipeEvenings[recipe];
+  if (!list.some(e=>String(e.id)===chosen)) selectedRecipeEvenings[recipe]=String(list[0].id);
+  for (const evening of list) {
+    const option=document.createElement('option');option.value=String(evening.id);
+    option.textContent=`${eveningDate(evening.date_soiree)} · ${evening.nombre_preparations} préparations`;
+    select.appendChild(option);
+  }
+  select.value=selectedRecipeEvenings[recipe];
+  select.addEventListener('change',()=>{selectedRecipeEvenings[recipe]=select.value;renderRecipePages();});
+  host.appendChild(select);
+  const evening=list.find(e=>String(e.id)===select.value);
+  addText(host,'p',`🍽️ ${evening.nombre_preparations} préparations · ${evening.titre||recipe}`);
+  return evening;
+}
+function recipeMemberList(parent,members,discordId) {
+  const holder=document.createElement('div');holder.className='members';parent.appendChild(holder);
+  if (!members.length) {holder.textContent='Aucun inscrit pour le moment.';return;}
+  for (const member of members) {
+    const name=member.membre_id===discordId?'Vous':'Membre du Refuge';
+    const badge=document.createElement('span');badge.className='member';
+    const avatar=document.createElement('span');avatar.className='avatar';avatar.textContent=name[0];
+    const text=document.createElement('span');text.textContent=name;
+    badge.append(avatar,text);holder.appendChild(badge);
+  }
+}
+async function renderRecipePages() {
+  const version=++recipeRenderVersion;
+  const contexts=[];
+  for(const [recipe,pageId] of Object.entries(recipePageIds)) {
+    const evening=recipeEveningSelect(recipe,pageId);
+    if(recipe==='Sashimi') document.getElementById('roles').replaceChildren();
+    else document.querySelectorAll(`.page[data-page="${pageId}"] .recipe-role-meta`).forEach(x=>x.remove());
+    if(evening) contexts.push({recipe,pageId,evening});
+  }
+  if(!contexts.length) return;
+  const {data:auth}=await supabaseClient.auth.getUser();
+  if(version!==recipeRenderVersion)return;
+  const discordId=auth?.user?.identities?.find(x=>x.provider==='discord')?.identity_data?.sub;
+  const result=await Promise.all(contexts.map(async context=>{
+    const {data,error}=await supabaseClient.from('inscriptions').select('membre_id,poste').eq('soiree_id',context.evening.id);
+    return {...context,data:data||[],error};
+  }));
+  if(version!==recipeRenderVersion)return;
+  for(const context of result){
+    const {recipe,pageId,evening,data,error}=context;
+    const host=document.getElementById('recipe-selection-'+pageId);
+    if(error){addText(host,'p','Impossible de charger les inscriptions : '+error.message);continue;}
+    if(!discordId)addText(host,'p','💜 Connecte-toi avec Discord (sur la page Sashimi) pour choisir un poste.');
+    const posts=getEveningPosts(recipe);
+    const cards=recipe==='Sashimi'?[]:[...document.querySelectorAll(`.page[data-page="${pageId}"] .poke-step`)];
+    posts.forEach((post,index)=>{
+      const members=data.filter(x=>x.poste===post.id);
+      const mine=!!discordId&&members.some(x=>x.membre_id===discordId);
+      const full=post.limit!==null&&members.length>=post.limit;
+      let parent;
+      if(recipe==='Sashimi') {
+        parent=document.createElement('div');parent.className='role';document.getElementById('roles').appendChild(parent);
+        addText(parent,'h3',post.name);
+        const image=document.createElement('img');image.className='image-poste';
+        image.src=encodeURI(({starter:"Pousse d'épice.png",poisson:'Poisson.png',riz:'Riz.png'})[post.id]);image.alt=post.name;
+        parent.appendChild(image);
+        addText(parent,'p','À apporter : '+post.ingredient);
+      } else {
+        parent=document.createElement('div');parent.className='recipe-role-meta';cards[index]?.appendChild(parent);
+      }
+      addText(parent,'p',post.limit===null?`${members.length} inscrit(s) · places illimitées`:`${members.length} / ${post.limit} place(s)`);
+      recipeMemberList(parent,members,discordId);
+      const button=document.createElement('button');button.type='button';
+      button.textContent=mine?'Me désinscrire':full?'Poste complet':'Choisir ce poste';
+      button.disabled=!discordId||(full&&!mine);
+      if(mine)button.className='leave';
+      button.addEventListener('click',async()=>{
+        button.disabled=true;
+        try {
+          const {error:rpcError}=await withMagicLoading(()=>supabaseClient.rpc('gerer_inscription_soiree',{
+            p_soiree_id:evening.id,p_poste:post.id,p_action:mine?'desinscrire':'inscrire'
+          }));
+          if(rpcError)throw rpcError;
+          await renderRecipePages();
+        }catch(err){alert('Impossible de modifier ton inscription : '+(err.message||err));button.disabled=false;}
+      });
+      parent.appendChild(button);
+    });
+  }
+}
+
 async function loadEvenings() {
   eveningMessage.textContent='Chargement des soirées…';
   const {data,error}=await supabaseClient.from('soirees')
     .select('id,titre,recette,date_soiree,nombre_preparations,description,statut')
     .eq('statut','ouverte').order('date_soiree',{ascending:true}).limit(100);
   if(error){console.error('Lecture des soirées :',error);eveningMessage.textContent='Impossible de charger les soirées. Vérifie les autorisations de lecture Supabase.';return;}
-  allEvenings=data||[];renderEvenings();
+  allEvenings=data||[];renderEvenings();renderRecipePages();
 }
 document.getElementById('refresh-evenings').addEventListener('click',loadEvenings);
 document.getElementById('evenings-filter').addEventListener('change',renderEvenings);
 loadEvenings();
+supabaseClient.auth.onAuthStateChange(()=>{setTimeout(()=>renderRecipePages(),0);});
 
-    supabaseClient
-  .from("soirees")
-  .select("id, titre, recette, nombre_preparations, statut")
-  .eq("id", 1)
-  .single()
-  .then(({ data, error }) => {
-    if (error) {
-      console.error("Erreur de lecture de la soirée :", error.message);
-    } else {
-      console.log("Soirée retrouvée dans Supabase :", data.titre);
-    }
-  });
-    const currentUser = {
-  id: "demo",
-  name: "Connexion Discord..."
-};
-    // Un seul utilisateur fictif pour tester la page.
-    supabaseClient.auth.getSession().then(({ data, error }) => {
-  if (error) {
-    console.error("Erreur de session Discord :", error.message);
-    return;
-  }
-
-  console.log(
-    "Session Discord :",
-    data.session ? "Connectée 💜" : "Non connectée"
-  );
-});
-    supabaseClient.auth.getSession().then(({ data }) => {
-  console.log(
-    "Autorisation Discord disponible :",
-    data.session?.provider_token ? "Oui 💜" : "Non"
-  );
-});
-    supabaseClient.auth.getSession().then(async ({ data }) => {
-  const session = data.session;
-
-  if (!session?.provider_token) return;
-
-  const { data: profil, error } =
-    await supabaseClient.functions.invoke("pseudo-discord-refuge", {
-      body: {
-        discordToken: session.provider_token
-      }
-    });
-
-  if (error || profil?.error) {
-    console.error("Erreur de récupération du pseudo Discord");
-    return;
-  }
-
-  console.log("Pseudo du Refuge :", profil.pseudo);
-      currentUser.name = profil.pseudo;
-      currentUser.id = profil.discord_id;
-await chargerInscriptions();
-});
-
-
-  const roles = [
-  {
-    id: "starter",
-    name: "👑 Starter",
-    ingredient: "Pousses d'épice",
-    image: "Pousse d'épice.png",
-    limit: 1,
-    members: []
-  },
-  {
-    id: "poisson",
-    name: "🐟 Poisson",
-    ingredient: "Poisson au choix",
-    image: "Poisson.png",
-    limit: 1,
-    members: []
-  },
-  {
-    id: "riz",
-    name: "🍚 Riz",
-    ingredient: "Riz",
-    image: "Riz.png",
-    limit: Infinity,
-    members: []
-  }
-];
-    async function chargerInscriptions() {
-  return withMagicLoading(async () => {
-  const { data, error } = await supabaseClient
-    .from("inscriptions")
-    .select("membre_id, poste")
-    .eq("soiree_id", 1);
-
-  if (error) {
-    console.error("Erreur de chargement des inscriptions :", error.message);
-    return;
-  }
-
-  for (const role of roles) {
-    role.members = (data || [])
-      .filter(inscription => inscription.poste === role.id)
-      .map(inscription => ({
-        id: inscription.membre_id,
-        name: inscription.membre_id === currentUser.id
-          ? currentUser.name
-          : "Membre du Refuge"
-      }));
-  }
-
-  render();
-  });
-}
-
-async function toggleRole(roleId) {
-  const role = roles.find(r => r.id === roleId);
-  if (!role) return;
-
-  const { data: { user }, error: authError } =
-    await supabaseClient.auth.getUser();
-
-  if (authError || !user || currentUser.id === "demo") {
-    alert("💜 Connecte-toi avec Discord avant de choisir un poste.");
-    return;
-  }
-
-  const dejaInscrit = role.members.some(
-    member => member.id === currentUser.id
-  );
-
-  const { error } = await withMagicLoading(() => supabaseClient.rpc(
-    "gerer_inscription_sashimi",
-    {
-      p_poste: roleId,
-      p_action: dejaInscrit ? "desinscrire" : "inscrire"
-    }
-  ));
-
-  if (error) {
-    alert("Impossible de modifier ton inscription : " + error.message);
-    return;
-  }
-
-  await chargerInscriptions();
-}
-
-    function render() {
-      const container = document.getElementById("roles");
-      container.replaceChildren();
-
-      for (const role of roles) {
-        const joined = role.members.some(
-          member => member.id === currentUser.id
-        );
-
-        const full = role.members.length >= role.limit;
-        const card = document.createElement("div");
-        card.className = "role";
-
-const title = document.createElement("h3");
-title.textContent = role.name;
-card.appendChild(title);
-
-const image = document.createElement("img");
-image.src = encodeURI(role.image);
-image.alt = "Poste de cuisine : " + role.name;
-image.className = "image-poste";
-card.appendChild(image);
-
-        const ingredient = document.createElement("p");
-        ingredient.className = "ingredient";
-        ingredient.textContent =
-          "À apporter : " + role.ingredient;
-        card.appendChild(ingredient);
-
-        const places = document.createElement("p");
-        places.textContent = role.limit === Infinity
-          ? "Places illimitées"
-          : role.members.length + " / " + role.limit + " place";
-        card.appendChild(places);
-
-        const members = document.createElement("div");
-        members.className = "members";
-
-        if (role.members.length === 0) {
-          members.textContent = "Aucun inscrit pour le moment.";
-        }
-
-        for (const member of role.members) {
-          const badge = document.createElement("span");
-          badge.className = "member";
-
-          const avatar = document.createElement("span");
-          avatar.className = "avatar";
-          avatar.textContent = member.name[0];
-
-          const name = document.createElement("span");
-          name.textContent = member.name;
-
-          badge.append(avatar, name);
-          members.appendChild(badge);
-        }
-
-        card.appendChild(members);
-
-        const button = document.createElement("button");
-        button.textContent = joined
-          ? "Me désinscrire"
-          : full
-            ? "Poste complet"
-            : "Choisir ce poste";
-
-        button.disabled = full && !joined;
-        if (joined) button.className = "leave";
-
-        button.addEventListener("click", () => {
-          toggleRole(role.id);
-        });
-
-        card.appendChild(button);
-        container.appendChild(card);
-      }
-    }
-
-   chargerInscriptions();
-    
 document.getElementById("btn-discord").addEventListener("click", async () => {
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: "discord",
