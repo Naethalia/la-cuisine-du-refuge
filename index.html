@@ -115,6 +115,9 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 .evening-details[hidden] {display:none!important}
 .evening-details h3 {color:#82539c}
 .evening-details p {line-height:1.6;overflow-wrap:anywhere}
+.evening-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:14px}
+.evening-post{background:linear-gradient(135deg,#fff,#fff3fa);border:2px solid #e5c7eb;border-radius:16px;padding:14px}
+.evening-post h4{color:#82539c;margin:0 0 8px}.evening-post p{margin:8px 0;line-height:1.45}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -159,7 +162,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <section class="page" data-page="1" aria-label="Page 2 : Sashimi">
 <img src="soiree-sashimi.png" alt="Notre petite renarde violette et Reth pour la soirée Sashimi" class="sashimi-illustration">
 <h2>🍣 Soirée Sashimi</h2>
-<div class="info"><strong>50 préparations</strong><p>Organisateur : Naethalia (exemple)</p><p>Choisissez les postes correspondant à vos ingrédients.</p></div>
+<div class="info"><strong>🍣 Sashimi — préparations au choix</strong><p>Choisis une soirée Sashimi dans « Les soirées du Refuge » pour connaître son nombre de préparations et réserver ses postes.</p><p>Choisissez les postes correspondant à vos ingrédients.</p></div>
 <div id="discord-connexion" style="text-align:center; margin:20px 0;"><button id="btn-discord" type="button">💜 Se connecter avec Discord</button></div>
 <div class="postes-cuisine"><div id="roles"></div></div>
 <p class="notice">💜 Les inscriptions sont enregistrées automatiquement. Connectez-vous avec Discord pour réserver votre poste de cuisine ! 🦊</p>
@@ -182,7 +185,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>10. Mélange 2</h3><img class="poke-step-image" src="Mélange divin.png" alt="Illustration de l’étape 10 du Poké Bowl" loading="lazy"><p>Dari moulu + ail + pousse d’épice + racine vivace → mélange divin</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>11. Mélange 1 (final)</h3><img class="poke-step-image" src="Poké Bowl couv.png" alt="Poké Bowl terminé, assemblage final" loading="lazy"><p>Filet + salsa + mélange divin</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Les postes sont présentés pour préparer la soirée. Les inscriptions au Poké Bowl ouvriront après la configuration de sa soirée indépendante.</p>
+<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ».</p>
 <div class="page-number">— 3 —</div>
 </section>
 <section class="page" data-page="3" aria-label="Page 4 : Gâteau de fête">
@@ -199,7 +202,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>7. Plan de préparation</h3><img class="cake-step-image" src="Gélifié.png" alt="Illustration de l’étape 7 du Gâteau de fête" loading="lazy"><p>1 couche de gâteau + 1 glaçage aux fruits → couche garnie</p><p class="overprep">Over Prep : ✅ Oui · 3 personnes nécessaires</p></article>
 <article class="poke-step"><h3>8. Plan de préparation (final)</h3><img class="cake-step-image" src="gateau_fete_aquarelle.png" alt="Gâteau de fête terminé" loading="lazy"><p>3 couches garnies + 1 glaçage principal</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Les postes sont présentés pour préparer la soirée. Les inscriptions au Gâteau de fête ouvriront après la configuration de sa soirée indépendante.</p>
+<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ».</p>
 <div class="page-number">— 4 —</div>
 </section>
 <section class="page" data-page="4" aria-label="Page 5 : 🍔 Hamburger de haricots">
@@ -237,7 +240,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img class="cake-step-image" src="burger_haricots_aquarelle.png" alt="🍔 Hamburger de haricots terminé" loading="lazy">
 <p>Fromage + tomate + oignon + galette + sauce + pain → Burger aux haricots</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Les inscriptions à cette recette ouvriront après la configuration de sa soirée indépendante. Les illustrations des autres postes seront ajoutées progressivement.</p>
+<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ». Les illustrations des autres postes seront ajoutées progressivement.</p>
 <div class="page-number">— 5 —</div>
 </section>
 <section class="page" data-page="5" aria-label="Page 6 : 🌶️ Chili végétarien">
@@ -277,7 +280,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img class="cake-step-image" src="chili_vegetarien_aquarelle.png" alt="🌶️ Chili végétarien terminé" loading="lazy">
 <p>Ajouter le mélange de chili et remuer → Chili végétarien</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Les inscriptions à cette recette ouvriront après la configuration de sa soirée indépendante. Les illustrations des autres postes seront ajoutées progressivement.</p>
+<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ». Les illustrations des autres postes seront ajoutées progressivement.</p>
 <div class="page-number">— 6 —</div>
 </section>
 <section class="page" data-page="6" aria-label="Page 7 : 🍲 Bahari de Muujin">
@@ -321,7 +324,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <img class="cake-step-image" src="bahari_muujin_aquarelle.png" alt="🍲 Bahari de Muujin terminé" loading="lazy">
 <p>Bahari non cuit → Bahari de Muujin</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
-<p class="poke-note">💜 Les inscriptions à cette recette ouvriront après la configuration de sa soirée indépendante. Les illustrations des autres postes seront ajoutées progressivement.</p>
+<p class="poke-note">💜 Pour réserver un poste, ouvre la soirée correspondante dans « Les soirées du Refuge ». Les illustrations des autres postes seront ajoutées progressivement.</p>
 <div class="page-number">— 7 —</div>
 </section>
 </div>
@@ -331,7 +334,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <section class="evenings" aria-labelledby="evenings-title">
  <div class="evenings-panel">
   <h2 id="evenings-title">🌸 Les soirées du Refuge</h2>
-  <p class="evenings-lead">Retrouve les soirées organisées par les membres. Les inscriptions aux autres recettes seront activées lorsque leurs postes seront configurés.</p>
+  <p class="evenings-lead">Retrouve les soirées organisées par les membres, puis ouvre une soirée pour choisir ton poste de cuisine.</p>
   <div class="evenings-toolbar"><label for="evenings-filter">Recette : <select id="evenings-filter"><option value="">Toutes les recettes</option><option>Sashimi</option><option>Poké Bowl</option><option>Gâteau de fête</option><option>Hamburger de haricots</option><option>Chili végétarien</option><option>Bahari de Muujin</option></select></label><button id="refresh-evenings" type="button">↻ Actualiser les soirées</button></div>
   <p id="evenings-message" class="evenings-message" role="status" aria-live="polite">Chargement des soirées…</p>
   <div id="evenings-grid" class="evenings-grid"></div>
@@ -459,7 +462,7 @@ function eveningDate(value) {
 function addText(parent, tag, value) { const element=document.createElement(tag);element.textContent=value;parent.appendChild(element);return element; }
 function renderEvenings() {
   eveningGrid.replaceChildren();
-  eveningDetails.hidden=true;
+  roleViewVersion++; eveningDetails.hidden=true;
   const filter=document.getElementById('evenings-filter').value;
   const filtered=allEvenings.filter(item=>!filter || item.recette===filter);
   eveningMessage.textContent=filtered.length ? `${filtered.length} soirée(s) à découvrir` : 'Aucune soirée ouverte pour cette sélection pour le moment.';
@@ -477,10 +480,66 @@ function renderEvenings() {
       addText(eveningDetails,'p','🍽️ '+evening.nombre_preparations+' préparations');
       addText(eveningDetails,'p','📖 Recette : '+evening.recette);
       if (evening.description) addText(eveningDetails,'p',evening.description);
-      addText(eveningDetails,'p','💜 Les inscriptions à cette soirée seront disponibles lorsque les postes correspondants seront configurés. Le système Sashimi existant reste accessible dans le carnet.');
+      renderEveningRoles(evening).catch(err => { console.error(err); addText(eveningDetails,'p','Impossible de charger les postes : '+err.message); });
       eveningDetails.hidden=false;eveningDetails.focus();
     });
     card.appendChild(button);eveningGrid.appendChild(card);
+  }
+}
+// Postes par soirée : les étapes sont lues dans les pages existantes du carnet.
+// Pour les soirées Sashimi, les trois postes historiques sont conservés.
+const stepRecipes = {'Poké Bowl':2,'Gâteau de fête':3,'Hamburger de haricots':4,'Chili végétarien':5,'Bahari de Muujin':6};
+function getEveningPosts(recipe) {
+  if (recipe === 'Sashimi') return [
+    {id:'starter',name:'👑 Starter',ingredient:'Pousses d’épice',limit:1},
+    {id:'poisson',name:'🐟 Poisson',ingredient:'Poisson au choix',limit:1},
+    {id:'riz',name:'🍚 Riz',ingredient:'Riz',limit:null}
+  ];
+  const page = document.querySelector(`.page[data-page="${stepRecipes[recipe]}"]`);
+  if (!page) return [];
+  return [...page.querySelectorAll('.poke-step')].map((step,i)=>{
+    const label=step.querySelector('h3')?.textContent||`Étape ${i+1}`;
+    const ingredient=step.querySelector('p:not(.overprep)')?.textContent||'';
+    const text=step.querySelector('.overprep')?.textContent||'';
+    const match=text.match(/(\d+) personne/);
+    return {id:`etape_${i+1}`,name:label,ingredient,limit:match?Number(match[1]):1};
+  });
+}
+let roleViewVersion=0;
+async function renderEveningRoles(evening) {
+  const version=++roleViewVersion;
+  const title=addText(eveningDetails,'h3','👑 Choisir mon poste');
+  title.className='postes-title';
+  const status=addText(eveningDetails,'p','Chargement des inscriptions…');
+  const area=document.createElement('div');area.className='evening-posts';eveningDetails.appendChild(area);
+  const posts=getEveningPosts(evening.recette);
+  const {data:identities}=await supabaseClient.auth.getUser();
+  const discordId=identities?.user?.identities?.find(x=>x.provider==='discord')?.identity_data?.sub;
+  if (version!==roleViewVersion || eveningDetails.hidden) return;
+  const {data,error}=await supabaseClient.from('inscriptions').select('membre_id,poste').eq('soiree_id',evening.id);
+  if (version!==roleViewVersion || eveningDetails.hidden) return;
+  if(error){status.textContent='Impossible de lire les inscriptions : '+error.message;return;}
+  status.textContent=discordId?'💜 Tu peux réserver ou libérer un poste.':'💜 Connecte-toi avec Discord (bouton sur la page Sashimi) pour réserver un poste.';
+  for(const post of posts){
+    const members=(data||[]).filter(x=>x.poste===post.id);
+    const mine=!!discordId && members.some(x=>x.membre_id===discordId);
+    const full=post.limit!==null && members.length>=post.limit;
+    const card=document.createElement('div');card.className='evening-post';
+    addText(card,'h4',post.name);
+    addText(card,'p','🍃 '+post.ingredient);
+    addText(card,'p',post.limit===null?`${members.length} inscrit(s) · places illimitées`:`${members.length} / ${post.limit} place(s)`);
+    if(members.length) addText(card,'p',members.map(m=>m.membre_id===discordId?'Vous':'Membre du Refuge').join(' · '));
+    const button=document.createElement('button');button.type='button';button.textContent=mine?'Me désinscrire':full?'Poste complet':'Choisir ce poste';
+    button.disabled=!discordId || (full&&!mine);
+    button.addEventListener('click',async()=>{
+      button.disabled=true;
+      const {error:rpcError}=await withMagicLoading(()=>supabaseClient.rpc('gerer_inscription_soiree',{
+        p_soiree_id:evening.id,p_poste:post.id,p_action:mine?'desinscrire':'inscrire'
+      }));
+      if(rpcError){alert('Inscription impossible : '+rpcError.message);button.disabled=false;return;}
+      if(version===roleViewVersion){eveningDetails.replaceChildren();addText(eveningDetails,'h3',evening.titre||'Soirée '+evening.recette);addText(eveningDetails,'p','📅 '+eveningDate(evening.date_soiree));addText(eveningDetails,'p','🍽️ '+evening.nombre_preparations+' préparations');await renderEveningRoles(evening);}
+    });
+    card.appendChild(button);area.appendChild(card);
   }
 }
 async function loadEvenings() {
