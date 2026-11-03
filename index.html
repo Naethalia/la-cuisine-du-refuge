@@ -120,7 +120,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>5. Station de mélange</h3><img class="cake-step-image" src="Glaçage fruits.png" alt="Illustration de l’étape 5 du Gâteau de fête" loading="lazy"><p>1 fruit + 1 sucre → glaçage aux fruits</p><p class="overprep">Over Prep : ❌ Non · 3 personnes nécessaires</p></article>
 <article class="poke-step"><h3>6. Station de mélange</h3><img class="cake-step-image" src="Glaçage.png" alt="Illustration de l’étape 6 du Gâteau de fête" loading="lazy"><p>1 lait + 1 beurre + 1 stévia moulue → glaçage principal</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>7. Plan de préparation</h3><img class="cake-step-image" src="Gélifié.png" alt="Illustration de l’étape 7 du Gâteau de fête" loading="lazy"><p>1 couche de gâteau + 1 glaçage aux fruits → couche garnie</p><p class="overprep">Over Prep : ✅ Oui · 3 personnes nécessaires</p></article>
-<article class="poke-step"><h3>8. Plan de préparation (final)</h3><img class="cake-step-image" src="gateau_fete_aquarelle(1).png" alt="Gâteau de fête terminé" loading="lazy"><p>3 couches garnies + 1 glaçage principal</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
+<article class="poke-step"><h3>8. Plan de préparation (final)</h3><img class="cake-step-image" src="gateau_fete_aquarelle.png" alt="Gâteau de fête terminé" loading="lazy"><p>3 couches garnies + 1 glaçage principal</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
 <p class="poke-note">💜 Les postes sont présentés pour préparer la soirée. Les inscriptions au Gâteau de fête ouvriront après la configuration de sa soirée indépendante.</p>
 <div class="page-number">— 4 —</div>
@@ -157,7 +157,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>13. Station de mélange</h3>
 <p>1 oignon ciselé + ketchup + ail émincé + mayonnaise → sauce burger</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>14. Plan de préparation 1 (final)</h3>
-<img class="cake-step-image" src="burger_haricots_aquarelle(1).png" alt="🍔 Hamburger de haricots terminé" loading="lazy">
+<img class="cake-step-image" src="burger_haricots_aquarelle.png" alt="🍔 Hamburger de haricots terminé" loading="lazy">
 <p>Fromage + tomate + oignon + galette + sauce + pain → Burger aux haricots</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
 <p class="poke-note">💜 Les inscriptions à cette recette ouvriront après la configuration de sa soirée indépendante. Les illustrations des autres postes seront ajoutées progressivement.</p>
@@ -197,7 +197,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>14. Station de mélange</h3>
 <p>Mélange de légumes + mélange sauté → mélange de chili</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>15. Cuisinière 1 (final)</h3>
-<img class="cake-step-image" src="chili_vegetarien_aquarelle(1).png" alt="🌶️ Chili végétarien terminé" loading="lazy">
+<img class="cake-step-image" src="chili_vegetarien_aquarelle.png" alt="🌶️ Chili végétarien terminé" loading="lazy">
 <p>Ajouter le mélange de chili et remuer → Chili végétarien</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
 <p class="poke-note">💜 Les inscriptions à cette recette ouvriront après la configuration de sa soirée indépendante. Les illustrations des autres postes seront ajoutées progressivement.</p>
@@ -241,7 +241,7 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
 <article class="poke-step"><h3>16. Plan de préparation</h3>
 <p>Pâte garnie + 3 muujins grillés + moutarde + 1 œuf → Bahari non cuit</p><p class="overprep">Over Prep : ✅ Oui · 1 personne nécessaire</p></article>
 <article class="poke-step"><h3>17. Four (final)</h3>
-<img class="cake-step-image" src="bahari_muujin_aquarelle(1).png" alt="🍲 Bahari de Muujin terminé" loading="lazy">
+<img class="cake-step-image" src="bahari_muujin_aquarelle.png" alt="🍲 Bahari de Muujin terminé" loading="lazy">
 <p>Bahari non cuit → Bahari de Muujin</p><p class="overprep">Over Prep : ❌ Non · 1 personne nécessaire</p></article>
 </div>
 <p class="poke-note">💜 Les inscriptions à cette recette ouvriront après la configuration de sa soirée indépendante. Les illustrations des autres postes seront ajoutées progressivement.</p>
@@ -260,11 +260,11 @@ button:disabled {background:#d4cadb; cursor:not-allowed;}
  function mobile(){return window.matchMedia('(max-width:760px)').matches;}
  function renderBook(){
   const step=mobile()?1:2;
-  position=Math.max(0,Math.min(Math.floor(position/step)*step, mobile()?pages.length-1:Math.max(0,pages.length-2)));
+  position=Math.max(0,Math.min(Math.floor(position/step)*step, pages.length-1));
   pages.forEach((page,i)=>{page.hidden=!(i>=position&&i<position+step);});
   previous.disabled=position===0;
   next.disabled=position+step>=pages.length;
-  indicator.textContent=mobile()?`Page ${position+1} sur ${pages.length}`:`Pages ${position+1} et ${Math.min(position+2,pages.length)}`;
+  indicator.textContent=mobile()?`Page ${position+1} sur ${pages.length}`:(position+1===pages.length?`Page ${position+1} sur ${pages.length}`:`Pages ${position+1} et ${position+2}`);
  }
  previous.addEventListener('click',()=>{position=Math.max(0,position-(mobile()?1:2));renderBook();});
  next.addEventListener('click',()=>{position=Math.min(pages.length-1,position+(mobile()?1:2));renderBook();});
